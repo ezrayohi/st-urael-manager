@@ -6,7 +6,7 @@
   <title>St. Urael • Owner &amp; Manager Command Portal</title>
   <meta
     name="description"
-    content="Private administration and reception queue portal for St. Urael Internal Medicine Specialty Clinic."
+    content="Owner and Manager administration, reception queue, and live website content studio for St. Urael Internal Medicine Specialty Clinic."
   />
 
   <!-- Formal Corporate Fonts: Montserrat & Inter + Noto Sans Ethiopic -->
@@ -27,6 +27,16 @@
           fontFamily: {
             editorial: ['"Montserrat"', '"Noto Sans Ethiopic"', 'system-ui', 'sans-serif'],
             sans: ['"Inter"', '"Noto Sans Ethiopic"', 'system-ui', 'sans-serif']
+          },
+          colors: {
+            clinic: {
+              teal: '#0F3D3E',
+              tealDeep: '#092627',
+              gold: '#C9AE74',
+              goldDark: '#B89B5E',
+              ivory: '#FAF9F6',
+              obsidian: '#0B1110'
+            }
           }
         }
       }
@@ -38,6 +48,7 @@
       --bg-page: #FAF9F6;
       --bg-surface: #FFFFFF;
       --text-primary: #182221;
+      --text-muted: #4A5568;
       --border-hairline: rgba(15, 61, 62, 0.12);
     }
 
@@ -45,7 +56,13 @@
       --bg-page: #0B1110;
       --bg-surface: #111917;
       --text-primary: #F4F6F5;
+      --text-muted: #B8C2BF;
       --border-hairline: rgba(201, 174, 116, 0.18);
+    }
+
+    html, body {
+      max-width: 100%;
+      overflow-x: hidden;
     }
 
     body {
@@ -67,6 +84,29 @@
       background-color: var(--bg-surface);
       border: 1px solid var(--border-hairline);
       border-radius: 1.25rem;
+      transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    }
+
+    .porcelain-surface:hover {
+      border-color: rgba(184, 155, 94, 0.45);
+      box-shadow: 0 20px 44px -26px rgba(15, 61, 62, 0.18);
+    }
+
+    .mgr-nav-link {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      padding: 0.42rem 0.78rem;
+      border-radius: 9999px;
+      border: 1px solid transparent;
+      color: rgba(250, 249, 246, 0.9);
+      transition: all 0.2s ease;
+    }
+
+    .mgr-nav-link:hover {
+      color: #FFFFFF;
+      background-color: rgba(255, 255, 255, 0.12);
+      border-color: rgba(201, 174, 116, 0.4);
     }
 
     input, select, textarea {
@@ -75,223 +115,595 @@
   </style>
 </head>
 
-<body class="min-h-screen selection:bg-[#0F3D3E] selection:text-[#FAF9F6]">
+<body id="top" class="min-h-screen selection:bg-[#0F3D3E] selection:text-[#FAF9F6]">
 
-  <!-- Top Manager Header -->
-  <header class="sticky top-0 z-40 bg-[#0F3D3E] text-[#FAF9F6] border-b border-white/10 shadow-md">
-    <div class="max-w-7xl mx-auto px-4 sm:px-8 h-18 py-3.5 flex items-center justify-between gap-3">
-      <div class="flex items-center gap-3">
-        <a
-          href="index.html"
-          class="px-3.5 py-1.5 rounded-full border border-white/25 bg-white/10 hover:bg-white/20 text-xs font-semibold flex items-center gap-1.5 transition-colors whitespace-nowrap"
-        >
-          <span>←</span>
-          <span>Public Clinic Web</span>
+  <!-- ===================================================================== -->
+  <!-- 1. HIGH-CONTRAST ST. URAEL TOP BAR (Matches Public Website Design)    -->
+  <!-- ===================================================================== -->
+  <header class="sticky top-0 z-40 bg-[#0F3D3E] text-[#FAF9F6] border-b border-white/15 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12">
+      <div class="h-20 py-3 flex items-center justify-between gap-3">
+
+        <!-- Left: Official St. Urael Circular Emblem + Manager Portal Lockup -->
+        <a href="#top" class="flex items-center gap-2.5 sm:gap-3 group focus:outline-none shrink-0 whitespace-nowrap">
+          <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-white p-1 shadow-sm flex items-center justify-center shrink-0 transition-transform duration-300 group-hover:scale-105">
+            <svg class="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <circle cx="50" cy="50" r="46" stroke="#0B4F9F" stroke-width="4.5" />
+              <circle cx="50" cy="31" r="6.5" fill="#0B4F9F" />
+              <circle cx="34" cy="37" r="5.5" fill="#0B4F9F" />
+              <circle cx="66" cy="37" r="5.5" fill="#0B4F9F" />
+              <path d="M24 54C28 45 40 45 44 54" stroke="#0B4F9F" stroke-width="5" stroke-linecap="round" />
+              <path d="M56 54C60 45 72 45 76 54" stroke="#0B4F9F" stroke-width="5" stroke-linecap="round" />
+              <path d="M40 50C44 41 56 41 60 50" stroke="#0B4F9F" stroke-width="5.5" stroke-linecap="round" />
+              <path d="M20 62C36 74 64 74 80 62C66 82 34 82 20 62Z" fill="#0B4F9F" />
+            </svg>
+          </div>
+          <div class="leading-tight whitespace-nowrap">
+            <div class="font-editorial text-sm sm:text-base font-extrabold tracking-[0.04em] text-white">
+              ST. URAEL • MANAGER
+            </div>
+            <div id="syncModeSubtitle" class="text-[10px] sm:text-[11px] font-semibold text-[#C9AE74]">
+              Owner &amp; Reception Command Portal
+            </div>
+          </div>
         </a>
-        <div class="leading-tight">
-          <div class="font-editorial text-sm sm:text-base font-extrabold tracking-tight">
-            St. Urael • Owner &amp; Manager Portal
-          </div>
-          <div id="syncModeSubtitle" class="text-[10px] text-[#C9AE74] font-semibold">
-            Connected to index.html
-          </div>
-        </div>
-      </div>
 
-      <div class="flex items-center gap-2.5">
-        <span id="mgrEatClock" class="hidden sm:inline text-xs font-bold tabular-nums text-white/85">EAT --:--</span>
-        <button
-          type="button"
-          onclick="toggleManagerTheme()"
-          class="px-3 py-1.5 rounded-full border border-white/25 bg-white/10 hover:bg-white/20 text-xs font-semibold cursor-pointer"
-        >
-          Theme
-        </button>
-        <button
-          id="managerLockBtn"
-          type="button"
-          onclick="lockManagerPortal()"
-          class="hidden px-3.5 py-1.5 rounded-full bg-[#C9AE74] text-[#0B1110] text-xs font-bold cursor-pointer"
-        >
-          Lock
-        </button>
+        <!-- Center: Quick Section Jump Links (Visible When Unlocked) -->
+        <nav id="mgrTopNavLinks" aria-label="Manager Sections" class="hidden xl:flex items-center gap-1 text-[12.5px] font-medium shrink-0">
+          <a href="#sec-queue" class="mgr-nav-link">1. Reception Queue</a>
+          <a href="#sec-doctors" class="mgr-nav-link">2. Doctors Duty</a>
+          <a href="#sec-editor" class="mgr-nav-link">3. Edit Website &amp; Photos</a>
+          <a href="#sec-reviews" class="mgr-nav-link">4. Reviews</a>
+          <a href="#sec-sync" class="mgr-nav-link">5. Domain Sync &amp; PIN</a>
+        </nav>
+
+        <!-- Right: Live EAT Clock + 24H/12H Time Format + Theme + Public Web + Lock -->
+        <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
+
+          <!-- Live Addis Ababa Clock + 24H / 12H Format Switcher -->
+          <div class="flex items-center gap-1.5 bg-[#092627] border border-white/15 rounded-full px-2.5 py-1 text-xs whitespace-nowrap">
+            <span class="w-1.5 h-1.5 rounded-full bg-[#C9AE74] animate-pulse hidden sm:inline-block"></span>
+            <span id="mgrEatClock" class="font-bold tabular-nums text-white px-1">EAT --:--</span>
+            <div class="inline-flex rounded-full bg-black/30 p-0.5 text-[10px] font-extrabold">
+              <button
+                id="mgrClock24Btn"
+                type="button"
+                onclick="setManagerTimeFormat(false)"
+                class="px-2 py-0.5 rounded-full bg-[#C9AE74] text-[#0B1110] cursor-pointer transition-colors"
+              >
+                24H
+              </button>
+              <button
+                id="mgrClock12Btn"
+                type="button"
+                onclick="setManagerTimeFormat(true)"
+                class="px-2 py-0.5 rounded-full text-white/85 hover:text-white cursor-pointer transition-colors"
+              >
+                12H
+              </button>
+            </div>
+          </div>
+
+          <!-- Theme Button -->
+          <button
+            type="button"
+            onclick="toggleManagerTheme()"
+            class="px-3 py-1.5 rounded-full border border-white/25 bg-white/10 hover:bg-white/20 text-xs font-semibold text-white cursor-pointer whitespace-nowrap"
+          >
+            Theme
+          </button>
+
+          <!-- Open Public Clinic Website -->
+          <a
+            id="publicWebHeaderLink"
+            href="index.html"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="hidden sm:inline-flex items-center gap-1 px-3.5 py-1.5 rounded-full border border-[#C9AE74]/60 bg-[#C9AE74]/15 hover:bg-[#C9AE74]/25 text-xs font-bold text-[#FAF9F6] transition-colors whitespace-nowrap"
+          >
+            <span>Public Web</span>
+            <span>↗</span>
+          </a>
+
+          <!-- Lock Portal Button -->
+          <button
+            id="managerLockBtn"
+            type="button"
+            onclick="lockManagerPortal()"
+            class="hidden px-3.5 py-1.5 rounded-full bg-[#C9AE74] hover:bg-[#D7BE88] text-[#0B1110] text-xs font-extrabold cursor-pointer whitespace-nowrap"
+          >
+            Lock
+          </button>
+        </div>
       </div>
     </div>
   </header>
 
-  <!-- Executive PIN Gate -->
-  <main id="managerPinGate" class="max-w-md mx-auto px-4 py-16 sm:py-24">
-    <form onsubmit="unlockManagerPortal(event)" class="porcelain-surface p-8 space-y-6 text-center shadow-xl">
-      <div class="w-14 h-14 rounded-2xl bg-[#0F3D3E] text-[#C9AE74] font-editorial font-extrabold text-xl flex items-center justify-center mx-auto">
-        SU
-      </div>
-      <div class="space-y-1.5">
-        <div class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#B89B5E]">RESTRICTED CLINIC PORTAL</div>
-        <h1 class="font-editorial text-2xl font-extrabold">Owner &amp; Manager Sign-In</h1>
-        <p class="text-xs text-[#4A5568] dark:text-[#B8C2BF]">
-          Enter your clinic administration PIN (Default: 9424)
-        </p>
-      </div>
+  <!-- ===================================================================== -->
+  <!-- 2. HERO BANNER + EXECUTIVE PIN SIGN-IN GATE (Matches Public Hero)     -->
+  <!-- ===================================================================== -->
+  <section id="managerPinGate" class="relative min-h-[calc(100vh-5rem)] flex items-center py-14 sm:py-20 overflow-hidden">
+    <!-- Full-Bleed St. Urael Hospital Exterior Backdrop -->
+    <img
+      id="mgrGateHeroImg"
+      src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1800&q=85"
+      onerror="handleMgrImgFallback(this, 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1800&q=85')"
+      alt="St. Urael Internal Medicine Specialty Clinic building in Addis Ababa"
+      class="absolute inset-0 w-full h-full object-cover object-center"
+    />
+    <div class="absolute inset-0 bg-gradient-to-r from-[#061A1B]/95 via-[#0F3D3E]/88 to-[#061A1B]/72"></div>
 
-      <input
-        id="managerPinInput"
-        type="password"
-        inputmode="numeric"
-        required
-        placeholder="••••"
-        class="w-full px-4 py-3.5 rounded-xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border text-center text-xl font-extrabold tracking-[0.35em]"
-      />
-      <p id="managerPinError" class="hidden text-xs text-red-600 font-semibold">Incorrect PIN. Default clinic PIN is 9424.</p>
+    <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center">
 
-      <button
-        type="submit"
-        class="w-full py-3.5 rounded-full bg-[#0F3D3E] dark:bg-[#C9AE74] text-[#FAF9F6] dark:text-[#0B1110] text-xs font-bold uppercase tracking-wider cursor-pointer"
-      >
-        Unlock Command Portal →
-      </button>
-    </form>
-  </main>
+        <!-- Left 7 Columns: Clinic Command Overview & Campus Cards -->
+        <div class="lg:col-span-7 space-y-6 text-white">
+          <div class="inline-flex items-center gap-2.5 text-[11px] font-bold tracking-[0.2em] uppercase text-[#C9AE74]">
+            <span class="w-6 h-[1.5px] bg-[#C9AE74]"></span>
+            <span>ST. URAEL MEDICAL SERVICE PLC • ADMINISTRATION</span>
+          </div>
 
-  <!-- Unlocked Owner & Manager Dashboard -->
-  <main id="managerDashboardBody" class="hidden max-w-7xl mx-auto px-4 sm:px-8 py-10 space-y-10">
+          <h1 class="font-editorial text-3xl sm:text-5xl font-extrabold leading-[1.1] tracking-tight text-white">
+            Clinic Operations, Reception Queue &amp; Live Website Studio
+          </h1>
 
-    <!-- 1. Patient Appointments & Acceptance Queue -->
-    <section class="porcelain-surface p-6 sm:p-8 space-y-6">
-      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b hairline-border pb-4">
-        <div>
-          <div class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#B89B5E]">1. LIVE RECEPTION QUEUE</div>
-          <h2 class="font-editorial text-xl sm:text-2xl font-extrabold mt-0.5">Patient Bookings &amp; Acceptance Dispatch</h2>
+          <p class="text-sm sm:text-base text-white/90 leading-relaxed max-w-xl">
+            Manage incoming 24/7 patient consultations, send instant acceptance notifications to patients, toggle attending specialists on duty, and edit every photo, headline, and announcement on your public clinic website.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+            <div class="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15">
+              <div class="text-[10px] font-bold tracking-[0.18em] uppercase text-[#C9AE74]">RECEPTION DESK</div>
+              <div class="font-editorial text-base font-extrabold mt-1">Instant Acceptance</div>
+              <p class="text-[11px] text-white/80 mt-1">Updates patient notification bells &amp; WhatsApp/SMS passes.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15">
+              <div class="text-[10px] font-bold tracking-[0.18em] uppercase text-[#C9AE74]">CONTENT STUDIO</div>
+              <div class="font-editorial text-base font-extrabold mt-1">Photos &amp; Texts</div>
+              <p class="text-[11px] text-white/80 mt-1">Upload clinic photos, edit headlines &amp; publish announcements.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15">
+              <div class="text-[10px] font-bold tracking-[0.18em] uppercase text-[#C9AE74]">24/7 CAMPUS</div>
+              <div class="font-editorial text-base font-extrabold mt-1">Short Code 9424</div>
+              <p class="text-[11px] text-white/80 mt-1">Rwanda Street, beside Rwanda Embassy, Addis Ababa.</p>
+            </div>
+          </div>
         </div>
 
-        <div class="flex flex-wrap items-center gap-2">
-          <div id="managerQueueStats" class="flex flex-wrap gap-2 text-xs font-bold"></div>
+        <!-- Right 5 Columns: Executive PIN Unlock Card -->
+        <div class="lg:col-span-5">
+          <form onsubmit="unlockManagerPortal(event)" class="porcelain-surface p-7 sm:p-9 space-y-6 text-center shadow-2xl">
+            <div class="w-14 h-14 rounded-full bg-white p-1.5 border-2 border-[#0F3D3E] shadow-md flex items-center justify-center mx-auto">
+              <svg class="w-full h-full" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="50" cy="50" r="46" stroke="#0B4F9F" stroke-width="4.5" />
+                <circle cx="50" cy="31" r="6.5" fill="#0B4F9F" />
+                <circle cx="34" cy="37" r="5.5" fill="#0B4F9F" />
+                <circle cx="66" cy="37" r="5.5" fill="#0B4F9F" />
+                <path d="M24 54C28 45 40 45 44 54" stroke="#0B4F9F" stroke-width="5" stroke-linecap="round" />
+                <path d="M56 54C60 45 72 45 76 54" stroke="#0B4F9F" stroke-width="5" stroke-linecap="round" />
+                <path d="M40 50C44 41 56 41 60 50" stroke="#0B4F9F" stroke-width="5.5" stroke-linecap="round" />
+                <path d="M20 62C36 74 64 74 80 62C66 82 34 82 20 62Z" fill="#0B4F9F" />
+              </svg>
+            </div>
+
+            <div class="space-y-1.5">
+              <div class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#B89B5E] dark:text-[#C9AE74]">
+                RESTRICTED CLINIC PORTAL
+              </div>
+              <h2 class="font-editorial text-2xl font-extrabold">Owner &amp; Manager Sign-In</h2>
+              <p class="text-xs text-[#4A5568] dark:text-[#B8C2BF]">
+                Enter your clinic administration PIN (Default: <strong>9424</strong>)
+              </p>
+            </div>
+
+            <input
+              id="managerPinInput"
+              type="password"
+              inputmode="numeric"
+              required
+              placeholder="••••"
+              class="w-full px-4 py-3.5 rounded-xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border text-center text-2xl font-extrabold tracking-[0.35em] focus:outline-none focus:border-[#0F3D3E] dark:focus:border-[#C9AE74]"
+            />
+            <p id="managerPinError" class="hidden text-xs text-red-600 dark:text-red-400 font-semibold">
+              Incorrect PIN. Default clinic PIN is 9424.
+            </p>
+
+            <button
+              type="submit"
+              class="w-full py-4 rounded-full bg-[#0F3D3E] hover:bg-[#165253] dark:bg-[#C9AE74] dark:hover:bg-[#D7BE88] text-[#FAF9F6] dark:text-[#0B1110] text-xs font-extrabold uppercase tracking-wider shadow-lg transition-all cursor-pointer"
+            >
+              Unlock Command Portal →
+            </button>
+
+            <div class="pt-2 border-t hairline-border flex items-center justify-between text-xs text-[#4A5568] dark:text-[#B8C2BF]">
+              <span>Public Patient Website:</span>
+              <a id="pinGatePublicLink" href="index.html" target="_blank" rel="noopener noreferrer" class="font-bold text-[#0F3D3E] dark:text-[#C9AE74] hover:underline">
+                Open index.html ↗
+              </a>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- 3. UNLOCKED OWNER & MANAGER COMMAND DASHBOARD                         -->
+  <!-- ===================================================================== -->
+  <div id="managerDashboardBody" class="hidden">
+
+    <!-- Executive Operational Banner (Matches Public Hero Visual Richness) -->
+    <section class="relative py-10 sm:py-12 border-b hairline-border overflow-hidden">
+      <img
+        id="mgrDashHeroImg"
+        src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1800&q=85"
+        onerror="handleMgrImgFallback(this, 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1800&q=85')"
+        alt="St. Urael Clinic exterior"
+        class="absolute inset-0 w-full h-full object-cover object-center"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-[#061A1B]/95 via-[#0F3D3E]/90 to-[#061A1B]/75"></div>
+
+      <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 space-y-6 text-white">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div class="space-y-1">
+            <div class="text-[10px] font-bold tracking-[0.22em] uppercase text-[#C9AE74]">
+              ST. URAEL MEDICAL SERVICE PLC • LIVE COMMAND CENTER
+            </div>
+            <h1 class="font-editorial text-2xl sm:text-3xl font-extrabold">
+              Your Health... Our Mission — Operations Dashboard
+            </h1>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2.5">
+            <button
+              type="button"
+              onclick="manualRefreshManager()"
+              class="px-4 py-2.5 rounded-full bg-white/15 hover:bg-white/25 border border-white/25 text-white text-xs font-bold uppercase tracking-wider cursor-pointer"
+            >
+              ↻ Sync All Data
+            </button>
+            <a
+              id="dashPublicWebBtn"
+              href="index.html"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="px-5 py-2.5 rounded-full bg-[#C9AE74] hover:bg-[#D7BE88] text-[#0B1110] text-xs font-extrabold uppercase tracking-wider"
+            >
+              Preview Public Site ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- Live Operational KPI Cards -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-2">
+          <div class="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15">
+            <div class="text-[10px] font-bold uppercase tracking-wider text-[#C9AE74]">Pending Requests</div>
+            <div id="kpiPendingCount" class="font-editorial text-2xl sm:text-3xl font-extrabold mt-1">0</div>
+          </div>
+          <div class="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15">
+            <div class="text-[10px] font-bold uppercase tracking-wider text-emerald-300">Accepted Bookings</div>
+            <div id="kpiAcceptedCount" class="font-editorial text-2xl sm:text-3xl font-extrabold mt-1">0</div>
+          </div>
+          <div class="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15">
+            <div class="text-[10px] font-bold uppercase tracking-wider text-[#C9AE74]">Doctors On Duty</div>
+            <div id="kpiDoctorsDutyCount" class="font-editorial text-2xl sm:text-3xl font-extrabold mt-1">5 / 5</div>
+          </div>
+          <div class="p-4 rounded-2xl bg-white/10 backdrop-blur-md border border-white/15">
+            <div class="text-[10px] font-bold uppercase tracking-wider text-white/80">Published Reviews</div>
+            <div id="kpiReviewsCount" class="font-editorial text-2xl sm:text-3xl font-extrabold mt-1">3</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 py-10 space-y-12">
+
+      <!-- ================================================================= -->
+      <!-- SECTION 1: LIVE RECEPTION & APPOINTMENT ACCEPTANCE QUEUE          -->
+      <!-- ================================================================= -->
+      <section id="sec-queue" class="porcelain-surface p-6 sm:p-8 space-y-6">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b hairline-border pb-4">
+          <div>
+            <div class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#B89B5E] dark:text-[#C9AE74]">1. LIVE RECEPTION QUEUE</div>
+            <h2 class="font-editorial text-xl sm:text-2xl font-extrabold mt-0.5">Patient Bookings &amp; Acceptance Dispatch</h2>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <button type="button" data-queue-filter="all" onclick="setQueueFilter('all')" class="px-4 py-1.5 rounded-full bg-[#0F3D3E] text-white dark:bg-[#C9AE74] dark:text-[#0B1110] text-xs font-bold cursor-pointer">All Bookings</button>
+            <button type="button" data-queue-filter="Pending" onclick="setQueueFilter('Pending')" class="px-4 py-1.5 rounded-full border hairline-border text-xs font-semibold cursor-pointer">Pending</button>
+            <button type="button" data-queue-filter="Confirmed" onclick="setQueueFilter('Confirmed')" class="px-4 py-1.5 rounded-full border hairline-border text-xs font-semibold cursor-pointer">Accepted</button>
+            <button type="button" data-queue-filter="Completed" onclick="setQueueFilter('Completed')" class="px-4 py-1.5 rounded-full border hairline-border text-xs font-semibold cursor-pointer">Completed</button>
+          </div>
+        </div>
+
+        <!-- Register Walk-In Patient -->
+        <form onsubmit="addWalkInAppointment(event)" class="grid grid-cols-1 sm:grid-cols-5 gap-3 p-4 rounded-2xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border">
+          <input id="walkInName" type="text" required placeholder="Walk-in Patient Name" class="px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs font-semibold" />
+          <input id="walkInPhone" type="tel" required placeholder="Phone (09...)" class="px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs font-semibold" />
+          <input id="walkInDept" type="text" value="General Internal Medicine" class="px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs font-semibold" />
+          <input id="walkInDoctor" type="text" value="Dr. Murad Mohammed" class="px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs font-semibold" />
+          <button type="submit" class="py-2.5 px-4 rounded-xl bg-[#0F3D3E] dark:bg-[#C9AE74] text-[#FAF9F6] dark:text-[#0B1110] text-xs font-extrabold uppercase tracking-wider cursor-pointer">
+            + Add &amp; Accept
+          </button>
+        </form>
+
+        <div id="managerAppointmentsList" class="space-y-3"></div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- SECTION 2: ATTENDING PHYSICIANS ON-DUTY TOGGLE                    -->
+      <!-- ================================================================= -->
+      <section id="sec-doctors" class="porcelain-surface p-6 sm:p-8 space-y-5">
+        <div class="border-b hairline-border pb-4">
+          <div class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#B89B5E] dark:text-[#C9AE74]">2. PHYSICIAN ROSTER CONTROL</div>
+          <h2 class="font-editorial text-xl sm:text-2xl font-extrabold mt-0.5">Attending Doctors On-Duty Status</h2>
+        </div>
+        <div id="managerDoctorsList" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- SECTION 3: PUBLIC WEBSITE CONTENT, PICTURES & ANNOUNCEMENTS STUDIO -->
+      <!-- ================================================================= -->
+      <section id="sec-editor" class="porcelain-surface p-6 sm:p-8 space-y-8">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b hairline-border pb-5">
+          <div>
+            <div class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#B89B5E] dark:text-[#C9AE74]">3. PUBLIC WEBSITE CONTENT &amp; MEDIA STUDIO</div>
+            <h2 class="font-editorial text-xl sm:text-2xl font-extrabold mt-0.5">Edit Pictures, Texts &amp; Live Announcements</h2>
+            <p class="text-xs text-[#4A5568] dark:text-[#B8C2BF] mt-1">
+              Every change saved here updates your public clinic website immediately.
+            </p>
+          </div>
+          <div class="flex flex-wrap items-center gap-2.5">
+            <button
+              type="button"
+              onclick="resetWebsiteContentDefaults()"
+              class="px-4 py-2.5 rounded-full border hairline-border hover:border-red-600 text-xs font-bold text-red-600 dark:text-red-400 cursor-pointer"
+            >
+              Reset Defaults
+            </button>
+            <button
+              type="button"
+              onclick="saveAllWebsiteContent()"
+              class="px-6 py-3 rounded-full bg-[#0F3D3E] hover:bg-[#165253] dark:bg-[#C9AE74] dark:hover:bg-[#D7BE88] text-[#FAF9F6] dark:text-[#0B1110] text-xs font-extrabold uppercase tracking-wider shadow-md cursor-pointer"
+            >
+              Publish All Changes →
+            </button>
+          </div>
+        </div>
+
+        <!-- 3A. Live Top Announcement Bar -->
+        <div class="p-5 sm:p-6 rounded-2xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-2">
+            <div>
+              <div class="text-[10px] font-bold tracking-[0.18em] uppercase text-[#0F3D3E] dark:text-[#C9AE74]">A. LIVE TOP ANNOUNCEMENT BAR</div>
+              <h3 class="font-editorial text-base font-extrabold mt-0.5">Clinic Notice Banner on Public Website</h3>
+            </div>
+            <label class="inline-flex items-center gap-2 text-xs font-bold cursor-pointer">
+              <input id="editAnnouncementActive" type="checkbox" checked class="w-4 h-4 accent-[#0F3D3E]" />
+              <span>Show Banner Live</span>
+            </label>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-2.5">
+            <input
+              id="editAnnouncementText"
+              type="text"
+              placeholder="e.g., 24/7 DRX Digital X-Ray (<10s) & 4D Ultrasound open — Call 9424"
+              class="flex-1 px-4 py-3 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs font-semibold"
+            />
+            <button
+              type="button"
+              onclick="saveAllWebsiteContent()"
+              class="px-5 py-3 rounded-xl bg-[#0F3D3E] dark:bg-[#C9AE74] text-[#FAF9F6] dark:text-[#0B1110] text-xs font-bold uppercase tracking-wider cursor-pointer"
+            >
+              Update Notice
+            </button>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2 text-[11px]">
+            <span class="font-semibold text-[#4A5568] dark:text-[#B8C2BF]">Quick Presets:</span>
+            <button type="button" onclick="applyNoticePreset('24/7 Internal Medicine, 4D Ultrasound & <10-Second DRX X-Ray Open Now — Call 9424')" class="px-3 py-1 rounded-full bg-white dark:bg-[#111917] border hairline-border hover:border-[#0F3D3E] cursor-pointer">24/7 Open Notice</button>
+            <button type="button" onclick="applyNoticePreset('Same-Day COVID-19 RT-PCR & Specialist Consultations Available — Book Online or Call 094 046 4646')" class="px-3 py-1 rounded-full bg-white dark:bg-[#111917] border hairline-border hover:border-[#0F3D3E] cursor-pointer">RT-PCR &amp; Specialists</button>
+            <button type="button" onclick="applyNoticePreset('')" class="px-3 py-1 rounded-full bg-white dark:bg-[#111917] border hairline-border hover:border-red-600 text-red-600 cursor-pointer">Clear Banner</button>
+          </div>
+        </div>
+
+        <!-- 3B. Hero Photo, Texts & Official Counters -->
+        <div class="p-5 sm:p-6 rounded-2xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border space-y-5">
+          <div class="text-[10px] font-bold tracking-[0.18em] uppercase text-[#0F3D3E] dark:text-[#C9AE74]">B. HERO BANNER PICTURE, TEXTS &amp; OFFICIAL FIGURES</div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <!-- Hero Image Uploader & Preview -->
+            <div class="lg:col-span-5 space-y-3">
+              <div class="rounded-xl overflow-hidden aspect-[16/10] bg-zinc-200 dark:bg-zinc-900 border hairline-border">
+                <img
+                  id="editHeroImgPreview"
+                  src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1000&q=85"
+                  alt="Hero background preview"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="flex flex-wrap items-center gap-2">
+                <label class="px-4 py-2 rounded-full bg-[#0F3D3E] dark:bg-[#C9AE74] text-[#FAF9F6] dark:text-[#0B1110] text-xs font-bold cursor-pointer">
+                  Upload Hero Photo
+                  <input type="file" accept="image/*" onchange="handleEditorImageUpload(event, 'editHeroImgUrl', 'editHeroImgPreview')" class="hidden" />
+                </label>
+                <input
+                  id="editHeroImgUrl"
+                  type="url"
+                  oninput="previewUrlImage('editHeroImgUrl', 'editHeroImgPreview')"
+                  placeholder="Or paste Hero Image URL..."
+                  class="flex-1 min-w-[180px] px-3 py-2 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs"
+                />
+              </div>
+            </div>
+
+            <!-- Hero Headlines & Official Figures -->
+            <div class="lg:col-span-7 space-y-4">
+              <div>
+                <label class="block text-xs font-bold mb-1">Hero Tagline (Eyebrow)</label>
+                <input id="editHeroEyebrow" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs font-semibold" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold mb-1">Main Hero Headline</label>
+                <input id="editHeroHeadline" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-sm font-bold" />
+              </div>
+              <div>
+                <label class="block text-xs font-bold mb-1">Hero Introduction Paragraph</label>
+                <textarea id="editHeroLead" rows="3" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs leading-relaxed"></textarea>
+              </div>
+
+              <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+                <div>
+                  <label class="block text-[10px] font-bold uppercase mb-1">Year Of Experience</label>
+                  <input id="editStatExp" type="text" value="9" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-sm font-extrabold text-center" />
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold uppercase mb-1">Total Services</label>
+                  <input id="editStatSrv" type="text" value="2" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-sm font-extrabold text-center" />
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold uppercase mb-1">Total Departments</label>
+                  <input id="editStatDept" type="text" value="6" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-sm font-extrabold text-center" />
+                </div>
+                <div>
+                  <label class="block text-[10px] font-bold uppercase mb-1">Number of Doctors</label>
+                  <input id="editStatDoc" type="text" value="3" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-sm font-extrabold text-center" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3C. Facility Gallery Pictures & Captions -->
+        <div class="p-5 sm:p-6 rounded-2xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border space-y-5">
+          <div class="text-[10px] font-bold tracking-[0.18em] uppercase text-[#0F3D3E] dark:text-[#C9AE74]">C. FACILITY PICTURES &amp; SUITE DESCRIPTIONS</div>
+          <div id="editGalleryCardsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-5"></div>
+        </div>
+
+        <!-- 3D. Section Headings, Vision & 24/7 Phone Numbers -->
+        <div class="p-5 sm:p-6 rounded-2xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border space-y-5">
+          <div class="text-[10px] font-bold tracking-[0.18em] uppercase text-[#0F3D3E] dark:text-[#C9AE74]">D. SECTION TEXTS, VISION &amp; 24/7 DIRECT PHONES</div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs font-bold mb-1">Facility Section Heading</label>
+              <input id="editFacilityTitle" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs font-semibold" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold mb-1">Departments Section Heading</label>
+              <input id="editSpecTitle" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs font-semibold" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold mb-1">Doctors &amp; About Heading</label>
+              <input id="editDoctorsTitle" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs font-semibold" />
+            </div>
+            <div>
+              <label class="block text-xs font-bold mb-1">Diagnostics Section Heading</label>
+              <input id="editDiagTitle" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs font-semibold" />
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-xs font-bold mb-1">Our Vision &amp; Mission Statement</label>
+              <textarea id="editVisionMissionText" rows="2" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs"></textarea>
+            </div>
+            <div class="md:col-span-2">
+              <label class="block text-xs font-bold mb-1">Clinic Address &amp; Location Title</label>
+              <input id="editLocTitle" type="text" class="w-full px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs font-semibold" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2 border-t hairline-border">
+            <div>
+              <label class="block text-[10px] font-bold uppercase mb-1">24/7 Short Code</label>
+              <input id="editShortCode" type="text" value="9424" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs font-bold" />
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold uppercase mb-1">Primary Mobile</label>
+              <input id="editPrimaryPhone" type="text" value="094 046 4646" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs font-bold" />
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold uppercase mb-1">Secondary Mobile</label>
+              <input id="editSecondaryPhone" type="text" value="094 056 5656" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs font-bold" />
+            </div>
+            <div>
+              <label class="block text-[10px] font-bold uppercase mb-1">Clinic Landline</label>
+              <input id="editLandlinePhone" type="text" value="011 666 2556" class="w-full px-3 py-2 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs font-bold" />
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <button
+              type="button"
+              onclick="saveAllWebsiteContent()"
+              class="px-7 py-3.5 rounded-full bg-[#0F3D3E] hover:bg-[#165253] dark:bg-[#C9AE74] dark:hover:bg-[#D7BE88] text-[#FAF9F6] dark:text-[#0B1110] text-xs font-extrabold uppercase tracking-wider cursor-pointer"
+            >
+              Save &amp; Publish All Website Changes →
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================================================================= -->
+      <!-- SECTION 4: PATIENT REVIEWS MODERATION                             -->
+      <!-- ================================================================= -->
+      <section id="sec-reviews" class="porcelain-surface p-6 sm:p-8 space-y-5">
+        <div class="flex flex-wrap items-center justify-between gap-3 border-b hairline-border pb-4">
+          <div>
+            <div class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#B89B5E] dark:text-[#C9AE74]">4. REVIEWS MODERATION</div>
+            <h2 class="font-editorial text-xl font-extrabold mt-0.5">Remove or Restore Published Reviews</h2>
+          </div>
           <button
+            id="restoreCoreReviewsBtn"
             type="button"
-            onclick="manualRefreshManager()"
-            class="px-3.5 py-1.5 rounded-full border hairline-border hover:border-[#0F3D3E] text-xs font-bold cursor-pointer"
+            onclick="restoreCoreReviewsFromManager()"
+            class="hidden px-4 py-2 rounded-full border hairline-border text-xs font-bold hover:border-[#0F3D3E] cursor-pointer"
           >
-            ↻ Sync Now
+            Restore Core Reviews
           </button>
         </div>
-      </div>
 
-      <!-- Queue Filter Pills -->
-      <div class="flex flex-wrap items-center gap-2">
-        <button type="button" data-queue-filter="all" onclick="setQueueFilter('all')" class="px-4 py-1.5 rounded-full bg-[#0F3D3E] text-white dark:bg-[#C9AE74] dark:text-[#0B1110] text-xs font-bold cursor-pointer">All Bookings</button>
-        <button type="button" data-queue-filter="Pending" onclick="setQueueFilter('Pending')" class="px-4 py-1.5 rounded-full border hairline-border text-xs font-semibold cursor-pointer">Pending</button>
-        <button type="button" data-queue-filter="Confirmed" onclick="setQueueFilter('Confirmed')" class="px-4 py-1.5 rounded-full border hairline-border text-xs font-semibold cursor-pointer">Accepted</button>
-        <button type="button" data-queue-filter="Completed" onclick="setQueueFilter('Completed')" class="px-4 py-1.5 rounded-full border hairline-border text-xs font-semibold cursor-pointer">Completed</button>
-      </div>
-
-      <!-- Register Walk-In Patient -->
-      <form onsubmit="addWalkInAppointment(event)" class="grid grid-cols-1 sm:grid-cols-5 gap-3 p-4 rounded-2xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border">
-        <input id="walkInName" type="text" required placeholder="Walk-in Patient Name" class="px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs font-semibold" />
-        <input id="walkInPhone" type="tel" required placeholder="Phone (09...)" class="px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs font-semibold" />
-        <input id="walkInDept" type="text" value="General Internal Medicine" class="px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs font-semibold" />
-        <input id="walkInDoctor" type="text" value="Dr. Murad Mohammed" class="px-3.5 py-2.5 rounded-xl bg-white dark:bg-[#111917] border hairline-border text-xs font-semibold" />
-        <button type="submit" class="py-2.5 px-4 rounded-xl bg-[#0F3D3E] dark:bg-[#C9AE74] text-[#FAF9F6] dark:text-[#0B1110] text-xs font-bold uppercase tracking-wider cursor-pointer">
-          + Add &amp; Accept
-        </button>
-      </form>
-
-      <div id="managerAppointmentsList" class="space-y-3"></div>
-    </section>
-
-    <!-- 2. Physician Duty Toggle & 3. Clinic Notice + Official Figures -->
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <section class="porcelain-surface p-6 sm:p-8 space-y-5">
-        <div>
-          <div class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#B89B5E]">2. PHYSICIAN AVAILABILITY</div>
-          <h2 class="font-editorial text-xl font-extrabold mt-0.5">Attending Doctors On-Duty Toggle</h2>
-        </div>
-        <div id="managerDoctorsList" class="space-y-3"></div>
+        <div id="managerReviewsList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
       </section>
 
-      <section class="porcelain-surface p-6 sm:p-8 space-y-5">
-        <div>
-          <div class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#B89B5E]">3. LIVE PUBLIC SITE CONTROLS</div>
-          <h2 class="font-editorial text-xl font-extrabold mt-0.5">Announcement Banner &amp; Official Figures</h2>
-        </div>
-
-        <div class="space-y-2">
-          <label class="block text-xs font-bold">Top Notice Banner on Public Website</label>
-          <div class="flex gap-2">
-            <input id="mgrBannerInput" type="text" placeholder="e.g., 24/7 DRX X-Ray & 4D Ultrasound open — Call 9424" class="flex-1 px-3.5 py-2.5 rounded-xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border text-xs" />
-            <button type="button" onclick="saveClinicAnnouncement()" class="px-4 py-2.5 rounded-xl bg-[#0F3D3E] dark:bg-[#C9AE74] text-[#FAF9F6] dark:text-[#0B1110] text-xs font-bold cursor-pointer">Save</button>
+      <!-- ================================================================= -->
+      <!-- SECTION 5: CROSS-DOMAIN CLOUD SYNC & ADMIN PIN                    -->
+      <!-- ================================================================= -->
+      <section id="sec-sync" class="porcelain-surface p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <div class="space-y-3">
+          <div class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#B89B5E] dark:text-[#C9AE74]">5. FREE CROSS-DOMAIN CLOUD SYNC</div>
+          <h3 class="font-editorial text-lg font-extrabold">Connect Separate Domains &amp; Devices Live</h3>
+          <p class="text-xs text-[#4A5568] dark:text-[#B8C2BF] leading-relaxed">
+            Paste your free <strong>Supabase Project URL</strong> (e.g., <code>https://xyz.supabase.co</code>) + <strong>Publishable Key</strong> (<code>sb_publishable_...</code>) to connect <code>index.html</code> and <code>manager.html</code> even when hosted on two different domains.
+          </p>
+          <div class="space-y-2">
+            <input id="mgrCloudUrlInput" type="url" placeholder="https://your-project.supabase.co" class="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border text-xs" />
+            <input id="mgrCloudKeyInput" type="password" placeholder="Supabase Publishable Key (sb_publishable_...)" class="w-full px-3.5 py-2.5 rounded-xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border text-xs" />
+            <div class="flex flex-wrap gap-2">
+              <button type="button" onclick="saveCloudDbSettings()" class="px-5 py-2.5 rounded-xl bg-[#0F3D3E] dark:bg-[#C9AE74] text-[#FAF9F6] dark:text-[#0B1110] text-xs font-bold cursor-pointer">
+                Connect Sync
+              </button>
+              <input id="mgrPublicUrlInput" type="url" oninput="savePublicSiteUrl()" placeholder="Optional Public Site URL (e.g., https://sturaelclinic.vercel.app)" class="flex-1 min-w-[200px] px-3.5 py-2.5 rounded-xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border text-xs" />
+            </div>
           </div>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
-          <div>
-            <label class="block text-[10px] font-bold uppercase mb-1">Experience</label>
-            <input id="mgrStatExp" type="text" value="9" class="w-full px-3 py-2 rounded-xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border text-sm font-bold text-center" />
-          </div>
-          <div>
-            <label class="block text-[10px] font-bold uppercase mb-1">Services</label>
-            <input id="mgrStatSrv" type="text" value="2" class="w-full px-3 py-2 rounded-xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border text-sm font-bold text-center" />
-          </div>
-          <div>
-            <label class="block text-[10px] font-bold uppercase mb-1">Departments</label>
-            <input id="mgrStatDept" type="text" value="6" class="w-full px-3 py-2 rounded-xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border text-sm font-bold text-center" />
-          </div>
-          <div>
-            <label class="block text-[10px] font-bold uppercase mb-1">Doctors</label>
-            <input id="mgrStatDoc" type="text" value="3" class="w-full px-3 py-2 rounded-xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border text-sm font-bold text-center" />
+        <div class="space-y-3">
+          <div class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#B89B5E] dark:text-[#C9AE74]">6. PORTAL SECURITY PIN</div>
+          <h3 class="font-editorial text-lg font-extrabold">Update Manager Access PIN</h3>
+          <p class="text-xs text-[#4A5568] dark:text-[#B8C2BF] leading-relaxed">
+            Change the 4-to-8 digit PIN required to unlock this management portal (default is 9424).
+          </p>
+          <div class="flex gap-2 max-w-sm">
+            <input id="mgrNewPinInput" type="password" inputmode="numeric" minlength="4" maxlength="8" placeholder="New PIN (4-8 digits)" class="flex-1 px-3.5 py-2.5 rounded-xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border text-xs font-bold" />
+            <button type="button" onclick="updateManagerPin()" class="px-4 py-2.5 rounded-xl border hairline-border hover:border-[#0F3D3E] text-xs font-bold cursor-pointer">
+              Save PIN
+            </button>
           </div>
         </div>
-        <button type="button" onclick="saveClinicStats()" class="px-5 py-2.5 rounded-full border hairline-border hover:border-[#0F3D3E] text-xs font-bold uppercase tracking-wider cursor-pointer">
-          Update Public Figures
-        </button>
       </section>
-    </div>
-
-    <!-- 4. Patient Reviews Moderation (Remove Any Review in Manager Mode) -->
-    <section class="porcelain-surface p-6 sm:p-8 space-y-5">
-      <div class="flex flex-wrap items-center justify-between gap-3 border-b hairline-border pb-4">
-        <div>
-          <div class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#B89B5E]">4. REVIEWS MODERATION</div>
-          <h2 class="font-editorial text-xl font-extrabold mt-0.5">Remove or Restore Published Reviews</h2>
-        </div>
-        <button
-          id="restoreCoreReviewsBtn"
-          type="button"
-          onclick="restoreCoreReviewsFromManager()"
-          class="hidden px-4 py-2 rounded-full border hairline-border text-xs font-bold hover:border-[#0F3D3E] cursor-pointer"
-        >
-          Restore Core Reviews
-        </button>
-      </div>
-
-      <div id="managerReviewsList" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
-    </section>
-
-    <!-- 5. Free Cloud Sync & Admin PIN Settings -->
-    <section class="porcelain-surface p-6 sm:p-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
-      <div class="space-y-3">
-        <div class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#B89B5E]">5. FREE CROSS-DEVICE CLOUD SYNC</div>
-        <h3 class="font-editorial text-lg font-extrabold">Connect Phones &amp; Reception PC Live</h3>
-        <p class="text-xs text-[#4A5568] dark:text-[#B8C2BF] leading-relaxed">
-          Paste your free Firebase Realtime Database URL (e.g., <code>https://st-urael-clinic-default-rtdb.firebaseio.com</code>) to sync patient bookings and acceptance notifications across all devices.
-        </p>
-        <div class="flex gap-2">
-          <input id="mgrCloudUrlInput" type="url" placeholder="https://your-project-default-rtdb.firebaseio.com" class="flex-1 px-3.5 py-2.5 rounded-xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border text-xs" />
-          <button type="button" onclick="saveCloudDbUrl()" class="px-4 py-2.5 rounded-xl bg-[#0F3D3E] dark:bg-[#C9AE74] text-[#FAF9F6] dark:text-[#0B1110] text-xs font-bold cursor-pointer">Connect</button>
-        </div>
-      </div>
-
-      <div class="space-y-3">
-        <div class="text-[10px] font-bold tracking-[0.2em] uppercase text-[#B89B5E]">6. PORTAL SECURITY PIN</div>
-        <h3 class="font-editorial text-lg font-extrabold">Update Manager Access PIN</h3>
-        <p class="text-xs text-[#4A5568] dark:text-[#B8C2BF] leading-relaxed">
-          Change the 4-to-8 digit PIN required to unlock this management portal.
-        </p>
-        <div class="flex gap-2 max-w-sm">
-          <input id="mgrNewPinInput" type="password" inputmode="numeric" minlength="4" maxlength="8" placeholder="New PIN (4-8 digits)" class="flex-1 px-3.5 py-2.5 rounded-xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border text-xs font-bold" />
-          <button type="button" onclick="updateManagerPin()" class="px-4 py-2.5 rounded-xl border hairline-border hover:border-[#0F3D3E] text-xs font-bold cursor-pointer">Save PIN</button>
-        </div>
-      </div>
-    </section>
-  </main>
+    </main>
+  </div>
 
   <!-- Floating Toast -->
   <div
@@ -305,6 +717,7 @@
 
   <script>
     const DEFAULT_CLOUD_DB_URL = '';
+    const DEFAULT_CLOUD_DB_KEY = '';
 
     const STORAGE_KEYS = {
       appointments: 'st_urael_appointments_v1',
@@ -313,8 +726,11 @@
       removedCoreReviews: 'st_urael_removed_core_reviews_v1',
       announcement: 'st_urael_announcement_v1',
       stats: 'st_urael_stats_v1',
+      siteContent: 'st_urael_site_content_v1',
       pin: 'st_urael_manager_pin_v1',
-      cloudDbUrl: 'st_urael_cloud_db_url_v1'
+      cloudDbUrl: 'st_urael_cloud_db_url_v1',
+      cloudDbKey: 'st_urael_cloud_db_key_v1',
+      publicSiteUrl: 'st_urael_public_site_url_v1'
     };
 
     const defaultDoctors = [
@@ -352,14 +768,61 @@
       }
     ];
 
+    const defaultSiteContent = {
+      announcement: '',
+      announcementActive: true,
+      heroBgImg: 'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1800&q=85',
+      heroEyebrow: 'WELCOME TO ST. URAEL CLINIC • YOUR HEALTH... OUR MISSION',
+      heroHeadline: 'Your Health... Our Mission',
+      heroLead: 'Founded over 13 years ago and led by senior physicians, St. Urael offers 24/7 specialty internal medicine, clean examination and in-patient rooms, complimentary high-speed Wi-Fi, 4D Ultrasound, and a DRX digital X-ray system delivering results in under 10 seconds.',
+      statExp: '9',
+      statSrv: '2',
+      statDept: '6',
+      statDoc: '3',
+      facilityTitle: 'Designed for Calm, Precision & Round-the-Clock Care',
+      specTitle: 'Centers of Clinical Excellence',
+      doctorsTitle: 'Led by Senior Ethiopian Internal Medicine Specialists',
+      diagTitle: 'Precision Diagnostics Under One Roof',
+      visionMissionText: 'To remain Ethiopia’s trusted center of excellence in internal medicine and rapid diagnostics—delivering compassionate, evidence-based treatment around the clock.',
+      locTitle: 'Rwanda Street, Beside Rwanda Embassy, Addis Ababa',
+      shortCode: '9424',
+      primaryPhone: '094 046 4646',
+      secondaryPhone: '094 056 5656',
+      landlinePhone: '011 666 2556',
+      gallery: [
+        {
+          title: 'St. Urael Main Clinical Building',
+          sub: 'Rwanda Street, beside Rwanda Embassy — 24/7 emergency & outpatient access.',
+          img: 'https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1000&q=85'
+        },
+        {
+          title: 'Clean Consultation & Inpatient Suites',
+          sub: 'Private examination rooms, observation beds, and complimentary high-speed Wi-Fi.',
+          img: 'https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=85'
+        },
+        {
+          title: 'DRX Digital X-Ray & 4D Ultrasound Suite',
+          sub: 'Rapid diagnostic imaging delivering digital X-ray results in under 10 seconds.',
+          img: 'https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1000&q=85'
+        }
+      ]
+    };
+
     const mgrState = {
       unlocked: false,
+      use12Hour: false,
       queueFilter: 'all',
       appointments: [],
       doctors: [],
       userReviews: [],
       removedCoreReviewIds: []
     };
+
+    function handleMgrImgFallback(imgEl, fallbackUrl) {
+      if (!imgEl || imgEl.dataset.fallbackApplied === 'true') return;
+      imgEl.dataset.fallbackApplied = 'true';
+      imgEl.src = fallbackUrl;
+    }
 
     function showMgrToast(msg) {
       const el = document.getElementById('mgrToast');
@@ -382,22 +845,69 @@
       }
     }
 
+    function getCloudDbKey() {
+      try {
+        const stored = localStorage.getItem(STORAGE_KEYS.cloudDbKey);
+        return (stored || DEFAULT_CLOUD_DB_KEY || '').trim();
+      } catch (e) {
+        return DEFAULT_CLOUD_DB_KEY.trim();
+      }
+    }
+
+    function getStoredSiteContent() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEYS.siteContent);
+        if (!raw) return JSON.parse(JSON.stringify(defaultSiteContent));
+        const parsed = JSON.parse(raw);
+        return {
+          ...defaultSiteContent,
+          ...parsed,
+          gallery: Array.isArray(parsed.gallery) && parsed.gallery.length === 3
+            ? parsed.gallery
+            : JSON.parse(JSON.stringify(defaultSiteContent.gallery))
+        };
+      } catch (e) {
+        return JSON.parse(JSON.stringify(defaultSiteContent));
+      }
+    }
+
     async function pushCloudState() {
       const baseUrl = getCloudDbUrl();
       if (!baseUrl) return;
+      const payload = {
+        appointments: mgrState.appointments,
+        doctors: mgrState.doctors,
+        userReviews: mgrState.userReviews,
+        removedCoreReviewIds: mgrState.removedCoreReviewIds,
+        announcement: localStorage.getItem(STORAGE_KEYS.announcement) || '',
+        stats: JSON.parse(localStorage.getItem(STORAGE_KEYS.stats) || 'null'),
+        siteContent: getStoredSiteContent()
+      };
+
       try {
-        await fetch(`${baseUrl}/st_urael_clinic.json`, {
-          method: 'PUT',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            appointments: mgrState.appointments,
-            doctors: mgrState.doctors,
-            userReviews: mgrState.userReviews,
-            removedCoreReviewIds: mgrState.removedCoreReviewIds,
-            announcement: localStorage.getItem(STORAGE_KEYS.announcement) || '',
-            stats: JSON.parse(localStorage.getItem(STORAGE_KEYS.stats) || 'null')
-          })
-        });
+        if (baseUrl.includes('supabase.co')) {
+          const apiKey = getCloudDbKey();
+          if (!apiKey) return;
+          const headers = {
+            'Content-Type': 'application/json',
+            'apikey': apiKey,
+            'Prefer': 'resolution=merge-duplicates'
+          };
+          if (!apiKey.startsWith('sb_publishable_')) {
+            headers['Authorization'] = `Bearer ${apiKey}`;
+          }
+          await fetch(`${baseUrl}/rest/v1/clinic_state?on_conflict=id`, {
+            method: 'POST',
+            headers,
+            body: JSON.stringify({ id: 'main', payload })
+          });
+        } else {
+          await fetch(`${baseUrl}/st_urael_clinic.json`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+        }
       } catch (e) {}
     }
 
@@ -405,14 +915,30 @@
       const baseUrl = getCloudDbUrl();
       const sub = document.getElementById('syncModeSubtitle');
       if (!baseUrl) {
-        if (sub) sub.textContent = 'Connected via Browser Storage (index.html)';
+        if (sub) sub.textContent = 'Owner & Reception Command Portal';
         return;
       }
-      if (sub) sub.textContent = 'Live Cloud Sync Connected';
+      if (sub) sub.textContent = 'Cross-Domain Cloud Sync Active';
       try {
-        const res = await fetch(`${baseUrl}/st_urael_clinic.json`);
-        if (!res.ok) return;
-        const data = await res.json();
+        let data = null;
+        if (baseUrl.includes('supabase.co')) {
+          const apiKey = getCloudDbKey();
+          if (!apiKey) return;
+          const headers = { 'apikey': apiKey };
+          if (!apiKey.startsWith('sb_publishable_')) {
+            headers['Authorization'] = `Bearer ${apiKey}`;
+          }
+          const res = await fetch(`${baseUrl}/rest/v1/clinic_state?id=eq.main&select=payload`, {
+            headers
+          });
+          if (!res.ok) return;
+          const rows = await res.json();
+          data = Array.isArray(rows) && rows[0] ? rows[0].payload : null;
+        } else {
+          const res = await fetch(`${baseUrl}/st_urael_clinic.json`);
+          if (!res.ok) return;
+          data = await res.json();
+        }
         if (!data) return;
 
         if (Array.isArray(data.appointments)) {
@@ -433,6 +959,9 @@
         if (data.stats) {
           localStorage.setItem(STORAGE_KEYS.stats, JSON.stringify(data.stats));
         }
+        if (data.siteContent && typeof data.siteContent === 'object') {
+          localStorage.setItem(STORAGE_KEYS.siteContent, JSON.stringify(data.siteContent));
+        }
         if (mgrState.unlocked) renderManagerDashboard();
       } catch (e) {}
     }
@@ -442,13 +971,32 @@
       try { localStorage.setItem('st_urael_theme', isDark ? 'dark' : 'light'); } catch (e) {}
     }
 
+    function setManagerTimeFormat(use12) {
+      mgrState.use12Hour = Boolean(use12);
+      try { localStorage.setItem('st_urael_time_12h', mgrState.use12Hour ? '1' : '0'); } catch (e) {}
+      syncManagerClockButtons();
+      updateManagerClock();
+    }
+
+    function syncManagerClockButtons() {
+      const b24 = document.getElementById('mgrClock24Btn');
+      const b12 = document.getElementById('mgrClock12Btn');
+      if (!b24 || !b12) return;
+      b24.className = !mgrState.use12Hour
+        ? 'px-2 py-0.5 rounded-full bg-[#C9AE74] text-[#0B1110] cursor-pointer transition-colors'
+        : 'px-2 py-0.5 rounded-full text-white/85 hover:text-white cursor-pointer transition-colors';
+      b12.className = mgrState.use12Hour
+        ? 'px-2 py-0.5 rounded-full bg-[#C9AE74] text-[#0B1110] cursor-pointer transition-colors'
+        : 'px-2 py-0.5 rounded-full text-white/85 hover:text-white cursor-pointer transition-colors';
+    }
+
     function updateManagerClock() {
       try {
-        const formatted = new Intl.DateTimeFormat('en-GB', {
+        const formatted = new Intl.DateTimeFormat(mgrState.use12Hour ? 'en-US' : 'en-GB', {
           timeZone: 'Africa/Addis_Ababa',
           hour: '2-digit',
           minute: '2-digit',
-          hour12: false
+          hour12: mgrState.use12Hour
         }).format(new Date());
         const el = document.getElementById('mgrEatClock');
         if (el) el.textContent = `EAT ${formatted}`;
@@ -467,6 +1015,7 @@
         document.getElementById('managerPinGate')?.classList.add('hidden');
         document.getElementById('managerDashboardBody')?.classList.remove('hidden');
         document.getElementById('managerLockBtn')?.classList.remove('hidden');
+        populateWebsiteEditorForm();
         renderManagerDashboard();
       } else {
         err?.classList.remove('hidden');
@@ -489,22 +1038,188 @@
         mgrState.userReviews = JSON.parse(localStorage.getItem(STORAGE_KEYS.reviews) || '[]');
         mgrState.removedCoreReviewIds = JSON.parse(localStorage.getItem(STORAGE_KEYS.removedCoreReviews) || '[]');
 
-        const notice = localStorage.getItem(STORAGE_KEYS.announcement) || '';
-        const bannerInp = document.getElementById('mgrBannerInput');
-        if (bannerInp && !bannerInp.value) bannerInp.value = notice;
-
-        const statsRaw = localStorage.getItem(STORAGE_KEYS.stats);
-        if (statsRaw) {
-          const s = JSON.parse(statsRaw);
-          if (document.getElementById('mgrStatExp')) document.getElementById('mgrStatExp').value = s.exp || '9';
-          if (document.getElementById('mgrStatSrv')) document.getElementById('mgrStatSrv').value = s.srv || '2';
-          if (document.getElementById('mgrStatDept')) document.getElementById('mgrStatDept').value = s.dept || '6';
-          if (document.getElementById('mgrStatDoc')) document.getElementById('mgrStatDoc').value = s.doc || '3';
-        }
-
         const cloudInp = document.getElementById('mgrCloudUrlInput');
         if (cloudInp && !cloudInp.value) cloudInp.value = getCloudDbUrl();
+        const keyInp = document.getElementById('mgrCloudKeyInput');
+        if (keyInp && !keyInp.value) keyInp.value = getCloudDbKey();
+
+        const pubUrl = localStorage.getItem(STORAGE_KEYS.publicSiteUrl) || 'index.html';
+        const pubInp = document.getElementById('mgrPublicUrlInput');
+        if (pubInp && !pubInp.value && pubUrl !== 'index.html') pubInp.value = pubUrl;
+        syncPublicSiteLinks(pubUrl);
       } catch (e) {}
+    }
+
+    function syncPublicSiteLinks(url) {
+      const target = url || 'index.html';
+      ['publicWebHeaderLink', 'pinGatePublicLink', 'dashPublicWebBtn'].forEach((id) => {
+        const el = document.getElementById(id);
+        if (el) el.href = target;
+      });
+    }
+
+    function savePublicSiteUrl() {
+      const val = (document.getElementById('mgrPublicUrlInput')?.value || '').trim();
+      localStorage.setItem(STORAGE_KEYS.publicSiteUrl, val || 'index.html');
+      syncPublicSiteLinks(val || 'index.html');
+    }
+
+    function populateWebsiteEditorForm() {
+      const c = getStoredSiteContent();
+      const setVal = (id, v) => {
+        const el = document.getElementById(id);
+        if (el) el.value = v || '';
+      };
+
+      setVal('editAnnouncementText', c.announcement);
+      const actChk = document.getElementById('editAnnouncementActive');
+      if (actChk) actChk.checked = c.announcementActive !== false;
+
+      setVal('editHeroImgUrl', c.heroBgImg);
+      const heroPrev = document.getElementById('editHeroImgPreview');
+      if (heroPrev && c.heroBgImg) heroPrev.src = c.heroBgImg;
+      const dashHero = document.getElementById('mgrDashHeroImg');
+      if (dashHero && c.heroBgImg) dashHero.src = c.heroBgImg;
+
+      setVal('editHeroEyebrow', c.heroEyebrow);
+      setVal('editHeroHeadline', c.heroHeadline);
+      setVal('editHeroLead', c.heroLead);
+      setVal('editStatExp', c.statExp);
+      setVal('editStatSrv', c.statSrv);
+      setVal('editStatDept', c.statDept);
+      setVal('editStatDoc', c.statDoc);
+
+      setVal('editFacilityTitle', c.facilityTitle);
+      setVal('editSpecTitle', c.specTitle);
+      setVal('editDoctorsTitle', c.doctorsTitle);
+      setVal('editDiagTitle', c.diagTitle);
+      setVal('editVisionMissionText', c.visionMissionText);
+      setVal('editLocTitle', c.locTitle);
+
+      setVal('editShortCode', c.shortCode);
+      setVal('editPrimaryPhone', c.primaryPhone);
+      setVal('editSecondaryPhone', c.secondaryPhone);
+      setVal('editLandlinePhone', c.landlinePhone);
+
+      const galBox = document.getElementById('editGalleryCardsContainer');
+      if (galBox) {
+        galBox.innerHTML = c.gallery.map((g, idx) => `
+          <div class="p-4 rounded-xl bg-white dark:bg-[#111917] border hairline-border space-y-3">
+            <div class="text-[10px] font-bold uppercase tracking-wider text-[#B89B5E]">Suite Photo 0${idx + 1}</div>
+            <div class="rounded-lg overflow-hidden aspect-[4/3] bg-zinc-200 dark:bg-zinc-900">
+              <img id="editGalPreview_${idx}" src="${g.img}" alt="Facility ${idx + 1}" class="w-full h-full object-cover" />
+            </div>
+            <div class="flex items-center gap-2">
+              <label class="px-3 py-1.5 rounded-full bg-[#0F3D3E] dark:bg-[#C9AE74] text-[#FAF9F6] dark:text-[#0B1110] text-[11px] font-bold cursor-pointer shrink-0">
+                Upload
+                <input type="file" accept="image/*" onchange="handleEditorImageUpload(event, 'editGalUrl_${idx}', 'editGalPreview_${idx}')" class="hidden" />
+              </label>
+              <input id="editGalUrl_${idx}" type="url" value="${g.img}" oninput="previewUrlImage('editGalUrl_${idx}', 'editGalPreview_${idx}')" placeholder="Image URL" class="flex-1 min-w-0 px-2.5 py-1.5 rounded-lg bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border text-[11px]" />
+            </div>
+            <input id="editGalTitle_${idx}" type="text" value="${g.title.replace(/"/g, '&quot;')}" placeholder="Card Title" class="w-full px-3 py-2 rounded-lg bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border text-xs font-bold" />
+            <textarea id="editGalSub_${idx}" rows="2" placeholder="Card Description" class="w-full px-3 py-2 rounded-lg bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border text-xs">${g.sub}</textarea>
+          </div>
+        `).join('');
+      }
+    }
+
+    function previewUrlImage(inputId, previewId) {
+      const url = document.getElementById(inputId)?.value.trim();
+      const img = document.getElementById(previewId);
+      if (url && img) img.src = url;
+    }
+
+    function handleEditorImageUpload(event, targetInputId, previewImgId) {
+      const file = event.target?.files?.[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const maxW = 1200;
+          const scale = Math.min(1, maxW / img.width);
+          canvas.width = Math.round(img.width * scale);
+          canvas.height = Math.round(img.height * scale);
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+          const compressed = canvas.toDataURL('image/jpeg', 0.82);
+
+          const inp = document.getElementById(targetInputId);
+          const prev = document.getElementById(previewImgId);
+          if (inp) inp.value = compressed;
+          if (prev) prev.src = compressed;
+          showMgrToast('Photo loaded — click Publish to save');
+        };
+        img.src = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+
+    function applyNoticePreset(text) {
+      const inp = document.getElementById('editAnnouncementText');
+      const chk = document.getElementById('editAnnouncementActive');
+      if (inp) inp.value = text;
+      if (chk) chk.checked = Boolean(text);
+      saveAllWebsiteContent();
+    }
+
+    function saveAllWebsiteContent() {
+      const getVal = (id, fallback = '') => (document.getElementById(id)?.value || '').trim() || fallback;
+      const announcement = (document.getElementById('editAnnouncementText')?.value || '').trim();
+      const announcementActive = document.getElementById('editAnnouncementActive')?.checked !== false;
+
+      const updated = {
+        announcement,
+        announcementActive,
+        heroBgImg: getVal('editHeroImgUrl', defaultSiteContent.heroBgImg),
+        heroEyebrow: getVal('editHeroEyebrow', defaultSiteContent.heroEyebrow),
+        heroHeadline: getVal('editHeroHeadline', defaultSiteContent.heroHeadline),
+        heroLead: getVal('editHeroLead', defaultSiteContent.heroLead),
+        statExp: getVal('editStatExp', '9'),
+        statSrv: getVal('editStatSrv', '2'),
+        statDept: getVal('editStatDept', '6'),
+        statDoc: getVal('editStatDoc', '3'),
+        facilityTitle: getVal('editFacilityTitle', defaultSiteContent.facilityTitle),
+        specTitle: getVal('editSpecTitle', defaultSiteContent.specTitle),
+        doctorsTitle: getVal('editDoctorsTitle', defaultSiteContent.doctorsTitle),
+        diagTitle: getVal('editDiagTitle', defaultSiteContent.diagTitle),
+        visionMissionText: getVal('editVisionMissionText', defaultSiteContent.visionMissionText),
+        locTitle: getVal('editLocTitle', defaultSiteContent.locTitle),
+        shortCode: getVal('editShortCode', '9424'),
+        primaryPhone: getVal('editPrimaryPhone', '094 046 4646'),
+        secondaryPhone: getVal('editSecondaryPhone', '094 056 5656'),
+        landlinePhone: getVal('editLandlinePhone', '011 666 2556'),
+        gallery: [0, 1, 2].map((idx) => ({
+          title: getVal(`editGalTitle_${idx}`, defaultSiteContent.gallery[idx].title),
+          sub: getVal(`editGalSub_${idx}`, defaultSiteContent.gallery[idx].sub),
+          img: getVal(`editGalUrl_${idx}`, defaultSiteContent.gallery[idx].img)
+        }))
+      };
+
+      localStorage.setItem(STORAGE_KEYS.siteContent, JSON.stringify(updated));
+      localStorage.setItem(STORAGE_KEYS.announcement, announcementActive ? announcement : '');
+      localStorage.setItem(STORAGE_KEYS.stats, JSON.stringify({
+        exp: updated.statExp,
+        srv: updated.statSrv,
+        dept: updated.statDept,
+        doc: updated.statDoc
+      }));
+
+      const dashHero = document.getElementById('mgrDashHeroImg');
+      if (dashHero && updated.heroBgImg) dashHero.src = updated.heroBgImg;
+
+      pushCloudState();
+      showMgrToast('All public website texts, photos & notices published!');
+    }
+
+    function resetWebsiteContentDefaults() {
+      localStorage.removeItem(STORAGE_KEYS.siteContent);
+      localStorage.removeItem(STORAGE_KEYS.announcement);
+      localStorage.removeItem(STORAGE_KEYS.stats);
+      populateWebsiteEditorForm();
+      pushCloudState();
+      showMgrToast('Public website reset to original defaults');
     }
 
     function setQueueFilter(val) {
@@ -521,23 +1236,25 @@
     async function manualRefreshManager() {
       await pullCloudState();
       renderManagerDashboard();
-      showMgrToast('Queue & reviews synced');
+      showMgrToast('Queue, website content & reviews synced');
     }
 
     function renderManagerDashboard() {
       loadAllData();
 
-      // 1. Appointments Queue
-      const qStats = document.getElementById('managerQueueStats');
+      // Update Top Hero KPIs
       const pendingCount = mgrState.appointments.filter((a) => a.status === 'Pending').length;
       const acceptedCount = mgrState.appointments.filter((a) => a.status === 'Confirmed').length;
-      if (qStats) {
-        qStats.innerHTML = `
-          <span class="px-3 py-1.5 rounded-full bg-amber-500/15 text-amber-700 dark:text-amber-300">${pendingCount} Pending</span>
-          <span class="px-3 py-1.5 rounded-full bg-emerald-600 text-white">${acceptedCount} Accepted</span>
-        `;
-      }
+      const dutyCount = mgrState.doctors.filter((d) => d.onDuty).length;
+      const visibleCore = defaultCoreReviews.filter((r) => !mgrState.removedCoreReviewIds.includes(r.id));
+      const activeRevs = [...mgrState.userReviews, ...visibleCore];
 
+      if (document.getElementById('kpiPendingCount')) document.getElementById('kpiPendingCount').textContent = pendingCount;
+      if (document.getElementById('kpiAcceptedCount')) document.getElementById('kpiAcceptedCount').textContent = acceptedCount;
+      if (document.getElementById('kpiDoctorsDutyCount')) document.getElementById('kpiDoctorsDutyCount').textContent = `${dutyCount} / ${mgrState.doctors.length}`;
+      if (document.getElementById('kpiReviewsCount')) document.getElementById('kpiReviewsCount').textContent = activeRevs.length;
+
+      // 1. Appointments Queue
       const listEl = document.getElementById('managerAppointmentsList');
       if (listEl) {
         const filtered = mgrState.queueFilter === 'all'
@@ -545,7 +1262,7 @@
           : mgrState.appointments.filter((a) => a.status === mgrState.queueFilter);
 
         if (!filtered.length) {
-          listEl.innerHTML = `<div class="text-xs text-[#4A5568] dark:text-[#B8C2BF] py-4">No appointments in this view.</div>`;
+          listEl.innerHTML = `<div class="text-xs text-[#4A5568] dark:text-[#B8C2BF] py-4">No appointments in this filter view.</div>`;
         } else {
           listEl.innerHTML = filtered.map((appt) => {
             const digits = appt.phone.replace(/\D/g, '');
@@ -598,15 +1315,16 @@
       const docEl = document.getElementById('managerDoctorsList');
       if (docEl) {
         docEl.innerHTML = mgrState.doctors.map((doc) => `
-          <div class="p-3.5 rounded-xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border flex items-center justify-between gap-3">
+          <div class="p-4 rounded-xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border flex items-center justify-between gap-3">
             <div>
-              <div class="text-xs font-bold">${doc.name}</div>
-              <div class="text-[11px] text-[#4A5568] dark:text-[#B8C2BF]">${doc.role}</div>
+              <div class="font-editorial text-xs font-extrabold">${doc.name}</div>
+              <div class="text-[11px] text-[#4A5568] dark:text-[#B8C2BF] mt-0.5">${doc.role}</div>
+              <div class="text-[10px] text-[#718096] mt-0.5">${doc.schedule}</div>
             </div>
             <button
               type="button"
               onclick="toggleDoctorDuty('${doc.id}')"
-              class="px-3.5 py-1.5 rounded-full text-[11px] font-bold cursor-pointer ${
+              class="px-3.5 py-1.5 rounded-full text-[11px] font-bold cursor-pointer shrink-0 ${
                 doc.onDuty ? 'bg-emerald-600 text-white' : 'bg-zinc-500/20 text-zinc-600 dark:text-zinc-300'
               }"
             >
@@ -623,8 +1341,6 @@
         restoreBtn.classList.toggle('hidden', mgrState.removedCoreReviewIds.length === 0);
       }
       if (revList) {
-        const visibleCore = defaultCoreReviews.filter((r) => !mgrState.removedCoreReviewIds.includes(r.id));
-        const activeRevs = [...mgrState.userReviews, ...visibleCore];
         revList.innerHTML = activeRevs.map((r) => `
           <div class="p-4 rounded-xl bg-[#FAF9F6] dark:bg-[#0B1110] border hairline-border flex items-start justify-between gap-3">
             <div class="space-y-1">
@@ -709,25 +1425,6 @@
       showMgrToast(`${doc.name} status updated`);
     }
 
-    function saveClinicAnnouncement() {
-      const val = document.getElementById('mgrBannerInput')?.value.trim() || '';
-      localStorage.setItem(STORAGE_KEYS.announcement, val);
-      pushCloudState();
-      showMgrToast('Public announcement banner updated');
-    }
-
-    function saveClinicStats() {
-      const stats = {
-        exp: document.getElementById('mgrStatExp')?.value.trim() || '9',
-        srv: document.getElementById('mgrStatSrv')?.value.trim() || '2',
-        dept: document.getElementById('mgrStatDept')?.value.trim() || '6',
-        doc: document.getElementById('mgrStatDoc')?.value.trim() || '3'
-      };
-      localStorage.setItem(STORAGE_KEYS.stats, JSON.stringify(stats));
-      pushCloudState();
-      showMgrToast('Public website figures updated');
-    }
-
     function removeReviewFromManager(reviewId, isCore) {
       if (isCore) {
         if (!mgrState.removedCoreReviewIds.includes(reviewId)) {
@@ -751,11 +1448,13 @@
       showMgrToast('Core clinic reviews restored');
     }
 
-    function saveCloudDbUrl() {
+    function saveCloudDbSettings() {
       const url = (document.getElementById('mgrCloudUrlInput')?.value || '').trim().replace(/\/+$/, '');
+      const key = (document.getElementById('mgrCloudKeyInput')?.value || '').trim();
       localStorage.setItem(STORAGE_KEYS.cloudDbUrl, url);
+      localStorage.setItem(STORAGE_KEYS.cloudDbKey, key);
       pullCloudState();
-      showMgrToast(url ? 'Cloud Sync URL saved' : 'Switched to local browser sync');
+      showMgrToast(url ? 'Cross-domain sync connected' : 'Switched to local browser sync');
     }
 
     function updateManagerPin() {
@@ -778,10 +1477,15 @@
         if (localStorage.getItem('st_urael_theme') === 'dark') {
           document.documentElement.classList.add('dark');
         }
+        if (localStorage.getItem('st_urael_time_12h') === '1') {
+          mgrState.use12Hour = true;
+        }
       } catch (e) {}
 
+      syncManagerClockButtons();
       updateManagerClock();
       setInterval(updateManagerClock, 15000);
+      loadAllData();
       pullCloudState();
       setInterval(pullCloudState, 8000);
     });
